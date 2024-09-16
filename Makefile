@@ -164,8 +164,8 @@ apply:
 ## Install go tools
 install-go-tools:
 	@echo Installing go tools
-	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.51.1
-	$(GO) install gotest.tools/gotestsum@v1.7.0
+	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0
+	$(GO) install gotest.tools/gotestsum@v1.12.0
 
 ## Runs eslint and golangci-lint
 .PHONY: check-style
@@ -209,7 +209,7 @@ endif
 ## Ensures NPM dependencies are installed without having to run this all the time.
 webapp/node_modules: $(wildcard webapp/package.json)
 ifneq ($(HAS_WEBAPP),)
-	cd webapp && $(NPM) install
+	cd webapp && npm install
 	touch $@
 endif
 
@@ -218,9 +218,9 @@ endif
 webapp: webapp/node_modules
 ifneq ($(HAS_WEBAPP),)
 ifeq ($(MM_DEBUG),)
-	cd webapp && $(NPM) run build;
+	cd webapp && npm run build;
 else
-	cd webapp && $(NPM) run debug;
+	cd webapp && npm run debug;
 endif
 endif
 
@@ -261,9 +261,9 @@ deploy: dist
 .PHONY: watch
 watch: apply server bundle
 ifeq ($(MM_DEBUG),)
-	cd webapp && $(NPM) run build:watch
+	cd webapp && npm run build:watch
 else
-	cd webapp && $(NPM) run debug:watch
+	cd webapp && npm run debug:watch
 endif
 
 ## Installs a previous built plugin with updated webpack assets to a server.
@@ -318,7 +318,7 @@ ifneq ($(HAS_SERVER),)
 	$(GOBIN)/gotestsum -- -v ./...
 endif
 ifneq ($(HAS_WEBAPP),)
-	cd webapp && $(NPM) run test;
+	cd webapp && npm run test;
 endif
 
 ## Runs any lints and unit tests defined for the server and webapp, if they exist, optimized
@@ -329,7 +329,7 @@ ifneq ($(HAS_SERVER),)
 	$(GOBIN)/gotestsum --format standard-verbose --junitfile report.xml -- ./...
 endif
 ifneq ($(HAS_WEBAPP),)
-	cd webapp && $(NPM) run test;
+	cd webapp && npm run test;
 endif
 
 ## Creates a coverage report for the server code.
