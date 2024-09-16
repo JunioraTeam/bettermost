@@ -6,6 +6,8 @@ import manifest from '@/manifest';
 
 import {PluginRegistry} from '@/types/mattermost-webapp';
 
+import './style.css';
+
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {

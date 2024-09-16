@@ -1,0 +1,10 @@
+.post-create__container div[class^='Container-'],
+.MenuWrapper div[class^='Badge-'],
+.MenuStartTrial,
+#product-switcher-menu-dropdown div + .menu-divider {
+  display: none!important;
+}
+
+.user-popover__custom-status {
+  font-family: VazirmatnNL, 'Open Sans', sans-serif !important;
+}
